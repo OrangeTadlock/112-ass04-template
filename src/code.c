@@ -57,7 +57,17 @@
 
 void clear_string(char s[], int n)
 {
+    int i = 0;
 
+loop
+    if (i >= n)
+        goto done;
+
+    s[i] = NULL;
+    i++;
+    goto loop;
+done:
+    return;
 }
 
 
@@ -70,6 +80,9 @@ void clear_string(char s[], int n)
 
 int my_isdigit(char c)
 {
+    if (c >= 47 && c <= 57)
+        return 1;
+
     return 0;
 }
 
@@ -83,6 +96,9 @@ int my_isdigit(char c)
 
 int my_islower(char c)
 {
+    if (c >= 97 && c <= 122)
+        return 1;
+
     return 0;
 }
 
@@ -101,6 +117,9 @@ int my_islower(char c)
 
 int my_isupper(char c)
 {
+    if (c >= 65 && c <= 90)
+        return 1;
+
     return 0;
 }
 
@@ -121,6 +140,9 @@ int my_isupper(char c)
 
 int my_isalpha(char c)
 {
+    if (my_islower(c) || my_isupper(c))
+        return 1;
+
     return 0;
 }
 
@@ -141,6 +163,20 @@ int my_isalpha(char c)
 
 int my_isalnum(char c)
 {
+    switch (my_isalpha(c))
+    {
+        case 1:
+            return 1;
+        case 0:
+            switch (my_isdigit(c))
+            {
+                case 1:
+                    return 1;
+                case 0:
+                    return 0;
+            }
+    }
+
     return 0;
 }
 
@@ -161,6 +197,28 @@ int my_isalnum(char c)
 
 int my_strcmp(char a[], char b[])
 {
+    int i = 0;
+
+loop:
+    if (a[i] == NULL || b[i] == NULL)
+        goto done;
+
+    if (a[i] < b[i])
+        return -1;
+
+    if (a[i] > b[i])
+        return 1;
+
+    i++;
+    goto loop;
+
+done:
+    if (a[i] < b[i])
+        return -1;
+
+    if (a[i] > b[i])
+        return 1;
+
     return 0;
 }
 
@@ -179,7 +237,16 @@ int my_strcmp(char a[], char b[])
 
 int my_strchr(char s[], char c)
 {
-    return 0;
+    int i = 0;
+loop:
+    if (s[i] == NULL)
+        return -1;
+
+    if (s[i] == c)
+        return i;
+
+    i++;
+    goto loop;
 }
 
 
@@ -196,7 +263,18 @@ int my_strchr(char s[], char c)
 
 int my_pow(int a, int b)
 {
-    return 0;
+    int my_pow = 1;
+    int i = 0;
+    if (b == 0)
+        return 1;
+loop:
+    if (i >= b)
+        goto done;
+    my_pow = my_pow * a;
+    i++;
+    goto loop;
+done:
+    return my_pow;
 }
 
 
@@ -213,7 +291,18 @@ int my_pow(int a, int b)
 
 double my_pow_double(double a, int b)
 {
-    return 0.0;
+    double my_pow = 1.0;
+    int i = 0;
+    if (b == 0)
+        return 1.0;
+loop:
+        if (i >= b)
+            goto done;
+        my_pow = my_pow * a;
+        i++;
+        goto loop;
+done:
+    return my_pow;
 }
 
 
