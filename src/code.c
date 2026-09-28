@@ -324,6 +324,8 @@ done:
 char * format_my_isupper(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    sprintf(dest, "isupper('%c') = %s", c, r ? "true" : "false");
+
     return dest;
 }
 
@@ -341,6 +343,8 @@ char * format_my_isupper(char dest[], char c, int r)
 char * format_my_isalpha(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    sprintf(dest, "isalpha('%c') = %s", c, r ? "true" : "false");
+
     return dest;
 }
 
@@ -358,6 +362,8 @@ char * format_my_isalpha(char dest[], char c, int r)
 char * format_my_isalnum(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    sprintf(dest, "isalnum('%c') = %s", c, r ? "true" : "false");
+
     return dest;
 }
 
@@ -377,6 +383,20 @@ char * format_my_isalnum(char dest[], char c, int r)
 char * format_my_strcmp(char dest[], int r)
 {
     clear_string(dest, 64);
+    switch (r) {
+        case -1:
+            sprintf(dest, "comparison: less");
+            break;
+        case 0:
+            sprintf(dest, "comparison: equal");
+            break;
+        case 1:
+            sprintf(dest, "comparison: greater");
+            break;
+        default:
+            sprintf(dest, "comparison: unknown");
+            break;
+    }
     return dest;
 }
 
@@ -394,6 +414,10 @@ char * format_my_strcmp(char dest[], int r)
 char * format_my_strchr(char dest[], int r)
 {
     clear_string(dest, 64);
+    if (r >= 0)
+        sprintf(dest, "found at: %d", r);
+    else
+        sprintf(dest, "not found");
     return dest;
 }
 
@@ -412,6 +436,7 @@ char * format_my_strchr(char dest[], int r)
 char * format_my_pow(char dest[], int r)
 {
     clear_string(dest, 64);
+    sprintf(dest, "pow = %-12d", r);
     return dest;
 }
 
@@ -436,5 +461,17 @@ char * format_my_pow(char dest[], int r)
 char * format_my_pow_double(char dest[], double r)
 {
     clear_string(dest, 64);
+    if (r < 0)
+        sprintf(dest, "%012.9f", r);
+    else if (r < 10)
+        sprintf(dest, "%012.9f", r);
+    else if (r < 100)
+        sprintf(dest, "%012.8f", r);
+    else if (r < 1000)
+        sprintf(dest, "%012.7f", r);
+    else if (r < 10000)
+        sprintf(dest, "%012.6f", r);
+    else
+        sprintf(dest, "%012.5f", r);
     return dest;
 }
