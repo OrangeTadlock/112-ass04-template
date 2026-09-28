@@ -59,11 +59,11 @@ void clear_string(char s[], int n)
 {
     int i = 0;
 
-loop
+loop:
     if (i >= n)
         goto done;
 
-    s[i] = NULL;
+    s[i] = '\0';
     i++;
     goto loop;
 done:
@@ -200,7 +200,7 @@ int my_strcmp(char a[], char b[])
     int i = 0;
 
 loop:
-    if (a[i] == NULL || b[i] == NULL)
+    if (a[i] == '\0' || b[i] == '\0')
         goto done;
 
     if (a[i] < b[i])
@@ -239,7 +239,7 @@ int my_strchr(char s[], char c)
 {
     int i = 0;
 loop:
-    if (s[i] == NULL)
+    if (s[i] == '\0')
         return -1;
 
     if (s[i] == c)
